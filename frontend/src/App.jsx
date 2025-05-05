@@ -1,32 +1,22 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './App.css'
+import RenderCart from './Card.jsx'
 
-function App() {
-  const [count, setCount] = useState(0)
+function App({pizza}) {
 
+    // всегда должна быть обёртка, потому что передаём только 1 элемент, а в нём может быть сколько угодно элементов
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src="#" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src="#" className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <>
+          {pizza.map((pizzas,index) => (
+                <RenderCart
+                key={index}
+                id={pizzas._id}
+                img={pizzas.img}
+                name={pizzas.name}
+                price={pizzas.price}
+                />
+          ))}
+      </>
   )
 }
 

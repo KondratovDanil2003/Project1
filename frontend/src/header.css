@@ -1,0 +1,12 @@
+.navigation__panel {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navigation__panel-link {
+  text-shadow: rgba(37, 37, 43, 0.4) 1px 1px 5px;
+}
+
+/*# sourceMappingURL=header.css.map */

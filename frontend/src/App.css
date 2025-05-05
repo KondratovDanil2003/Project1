@@ -1,10 +1,73 @@
+
 #root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+.cardPizza{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ffa600;
+  border-radius: 1rem;
+}
+.cardNamePizza{
+  padding-left: 2rem;
+}
+.cardPricePizza{
+  padding-left: 2rem;
+}
+.btn{
+  position: relative;
+  overflow: hidden;
+  border: none;
+  margin:0 auto 1rem;
+  background-color: white;
+  color: #1cff03;
+}
+.box{
+  position: absolute;
+  width: 50px;
+  height: 120px;
+  rotate: 45deg;
+  top: -70px;
+  left: -20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+
+.btn:active{
+  animation: an2 0.5s 0.2s forwards;
+}
+@keyframes an {
+  from{
+    translate: 0 0;
+  }
+  to{
+    translate: 120px 22px;
+  }
+}
+
+@keyframes an2 {
+  from{
+    color: black;
+  }
+  to{
+    color: #1c773f;
+  }
+}
 .logo {
   height: 6em;
   padding: 1.5em;
