@@ -21,18 +21,10 @@ mongoose.connect('mongodb://localhost/create-cart')
     .then(() => console.log('MongoDB подключен'))
     .catch(err => console.error('Ошибка подключения :', err));
 
-const pizzaSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    price: {type: Number, required: true},
-    img: {type: String, required: true}
-});
 
-const Pizza = mongoose.model('pizza', pizzaSchema, 'pizza');
 
 // Middleware для парсинга JSON
 app.use(express.json());
-
-export  {Pizza};
 
 app.use(cors());
 
