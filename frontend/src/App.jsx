@@ -20,7 +20,7 @@ export function App({pizza,onAddToCart}) {
       </>
   )
 }
-export function Cart({pizza}) {
+export function Cart({pizza,updateTotal}) {
 
     // всегда должна быть обёртка, потому что передаём только 1 элемент, а в нём может быть сколько угодно элементов
   return (
@@ -33,6 +33,7 @@ export function Cart({pizza}) {
                 name={pizzas.pizzaId.name}
                 price={pizzas.pizzaId.price}
                 quantity={pizzas.quantity}
+                updateTotal={updateTotal}
                 />
           ))}
       </>

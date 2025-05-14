@@ -6,11 +6,16 @@ const cartApi = new CartApi("http://localhost:5000");
 
 export function RenderCart( {id, img, name, price,onAddToCart  } ) {
 
-    const [isAdded, setIsAdded] = useState(false);
+    const added = JSON.parse(localStorage.getItem("addedPizzas") || "[]");
+    const [isAdded, setIsAdded] = useState(added.includes(id));
 
     const addClickBtn = async () => {
-        setIsAdded(!isAdded);
+        if (!added.includes(id)) {
             onAddToCart(id);
+            added.push(id);
+            localStorage.setItem('addedPizzas', JSON.stringify(added));
+            setIsAdded(true);
+        }
     }
 
     return (
@@ -19,19 +24,36 @@ export function RenderCart( {id, img, name, price,onAddToCart  } ) {
                 <img className="cardImgPizza" src={img} alt="card"/>
                 <p className="cardNamePizza">{name}</p>
                 <p className="cardPricePizza">{price} $ <span>500 gr.</span></p>
-                <button onClick={() => addClickBtn()} id="byBtn" className="btn">
-                    {isAdded ? 'Удалить' : 'Купить'}</button>
+                <button onClick={() => addClickBtn()} id="byBtn" className={`btn${isAdded ? ' btn--added' : ''}`}>
+                    {isAdded ? 'Добавлено' : 'Купить'}</button>
             </div></>
     )
 }
 
-export function RenderPizza( {id, img, name, price,quantity:initialQuantity } ) {
+export function RenderPizza( {id, img, name, price,quantity:initialQuantity,updateTotal  } ) {
     const [quantity, setQuantity] = useState(initialQuantity);
     const minusClickBtn = async () => {
-        setQuantity(quantity - 1);
+        cartApi.minusPizza("1", id).then((result) => {
+            const item = result.allPizzas.find(element => (element.pizzaId).toString() === id);
+            if (item.quantity > 0) {
+                setQuantity(item.quantity);
+                updateTotal(id);
+            }
+        })
     }
     const plusClickBtn = async () => {
-        setQuantity(quantity + 1);
+        cartApi.plusPizza("1", id).then((result) => {
+            const item = result.allPizzas.find(element => (element.pizzaId).toString() === id);
+            if (item) {
+                if(item.quantity > 0){
+                    setQuantity(item.quantity);
+                    updateTotal(id);
+                }
+                else{
+
+                }
+            }
+        })
     }
     return (
         <>

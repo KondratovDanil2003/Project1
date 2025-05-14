@@ -171,6 +171,10 @@
   margin: 20px auto 10px auto;
   z-index: 2;
 }
+.btn--added{
+  background-color: #02ba02;
+  pointer-events: none;
+}
 .cardPricePizza{
   width: 100%;
   display: flex;

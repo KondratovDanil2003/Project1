@@ -56,6 +56,36 @@ class CartApi{
             console.warn(err.message + ": " + userId);
         }
     }
+    async minusPizza(userId,pizzaId){
+        try{
+            const response = await fetch(`${this.baseUrl}/api/cart/increment/${userId}/${pizzaId}`,{
+                method: "PATCH"
+            });
+            if(!response.ok){
+                const error = await response.json();
+                throw new Error(error.message);
+            }
+            return await response.json();
+        }
+        catch(err){
+            console.warn(err.message);
+        }
+    }
+    async plusPizza(userId,pizzaId){
+        try{
+            const response = await fetch(`${this.baseUrl}/api/cart/decrement/${userId}/${pizzaId}`,{
+                method: "PATCH"
+            });
+            if(!response.ok){
+                const error = await response.json();
+                throw new Error(error.message);
+            }
+            return await response.json();
+        }
+        catch(err){
+            console.warn(err.message);
+        }
+    }
 }
 
 export default CartApi;

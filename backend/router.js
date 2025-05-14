@@ -61,4 +61,48 @@ router.get(`/cart/:userId`,async (req, res)=>{
         res.status(500).json({message: err.message});
     }
 })
+
+router.patch(`/cart/increment/:userId/:pizzaId`,async (req,res)=>{
+    const { userId,pizzaId } = req.params;
+    try{
+        const response = await Cart.findOne({userId});
+        if (!response) {
+            return res.status(404).json({ message: "Cart not found!" });
+        }
+        const pizzaIndex = response.allPizzas.findIndex((item)=> (item.pizzaId).toString() === pizzaId);
+
+        if (pizzaIndex <= -1) {
+            return res.status(404).json({ message: "Пицца не найдена в корзине" });
+        }
+        response.allPizzas[pizzaIndex].quantity -= 1;
+        await response.save();
+        return res.status(200).json(response);
+
+    }
+    catch(err){
+        res.status(500).json({ message: error.message });
+    }
+})
+
+router.patch(`/cart/decrement/:userId/:pizzaId`,async (req,res)=>{
+    const { userId,pizzaId } = req.params;
+    try{
+        const response = await Cart.findOne({userId});
+        if (!response) {
+            return res.status(404).json({ message: "Cart not found!" });
+        }
+        const pizzaIndex = response.allPizzas.findIndex((item)=> (item.pizzaId).toString() === pizzaId);
+
+        if (pizzaIndex <= -1) {
+            return res.status(404).json({ message: "Пицца не найдена в корзине" });
+        }
+        response.allPizzas[pizzaIndex].quantity += 1;
+        await response.save();
+        return res.status(200).json(response);
+
+    }
+    catch(err){
+        res.status(500).json({ message: error.message });
+    }
+})
 export default router;

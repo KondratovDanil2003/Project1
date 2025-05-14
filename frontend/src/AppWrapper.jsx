@@ -7,6 +7,9 @@ const cartApi = new CartApi("http://localhost:5000");
 export function AppWrapper() {
     const [pizzaList, setPizzaList] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [total, setTotal] = useState();
+
+
 
     useEffect(() => {
         cartApi.findAllPizzas().then(setPizzaList).catch(console.log);
@@ -15,15 +18,22 @@ export function AppWrapper() {
 
     const loadCart = () => {
         cartApi.cartPizzas("1")
-            .then(data => setCartItems(data.allPizzas))
+            .then(data => {
+                setCartItems(data.allPizzas);
+            })
             .catch(console.log);
     };
+    useEffect(() => {
+        const sum = cartItems.reduce((acc, item) => acc + item.pizzaId.price * item.quantity, 0);
+        setTotal(sum);
+    },[cartItems]);
 
     const handleAddToCart = (pizzaId) => {
         cartApi.addPizza("1", pizzaId, 1)
             .then(() => loadCart())
             .catch(console.log);
     };
+
 
     return (
         <>
@@ -32,10 +42,10 @@ export function AppWrapper() {
                     <h1 className="cart__heading">Cart</h1>
                     <div className="cart__product">
                         <ul className="cart__product-left">
-                            <Cart pizza={cartItems} />
+                            <Cart pizza={cartItems} updateTotal={loadCart} />
                         </ul>
                         <h2 className="cart__product-right-heading">Total <span className="dopClass">:</span> <span
-                            className="cart__product-right-price">  $100</span></h2>
+                            className="cart__product-right-price">  $ {total}</span></h2>
                     </div>
                 </div>
             </div>
