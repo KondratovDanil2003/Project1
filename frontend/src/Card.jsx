@@ -4,22 +4,30 @@ import CartApi from "../api.js";
 
 const cartApi = new CartApi("http://localhost:5000");
 
-export function RenderCart( {id, img, name, price,onAddToCart  } ) {
 
+export function RenderCart( {id, img, name, price,onAddToCart  } ) {
     const added = JSON.parse(localStorage.getItem("addedPizzas") || "[]");
+
     const [isAdded, setIsAdded] = useState(added.includes(id));
+    const [clickPoint, setClickPoint] = useState(false);
+
 
     const addClickBtn = async () => {
+
         if (!added.includes(id)) {
             onAddToCart(id);
             added.push(id);
             localStorage.setItem('addedPizzas', JSON.stringify(added));
             setIsAdded(true);
+            setClickPoint(true);
         }
     }
 
     return (
         <>
+            <p onClick={() => addClickBtn()} className={`pop-up-window${clickPoint ? ' pop-up-window--active' : ''}`}>В корзине
+                <img className="pop-up-window-img" src="./public/img/free-icon-check-14090371.png" alt="icon"/>
+            </p>
             <div key={id} className="cardPizza">
                 <img className="cardImgPizza" src={img} alt="card"/>
                 <p className="cardNamePizza">{name}</p>
@@ -48,9 +56,6 @@ export function RenderPizza( {id, img, name, price,quantity:initialQuantity,upda
                 if(item.quantity > 0){
                     setQuantity(item.quantity);
                     updateTotal(id);
-                }
-                else{
-
                 }
             }
         })

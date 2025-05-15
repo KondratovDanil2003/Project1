@@ -9,8 +9,6 @@ export function AppWrapper() {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState();
 
-
-
     useEffect(() => {
         cartApi.findAllPizzas().then(setPizzaList).catch(console.log);
         loadCart();
@@ -28,6 +26,12 @@ export function AppWrapper() {
         setTotal(sum);
     },[cartItems]);
 
+    useEffect(() => {
+        if (cartItems.length === 0) {
+            localStorage.removeItem('addedPizzas');
+        }
+    }, [cartItems]);
+
     const handleAddToCart = (pizzaId) => {
         cartApi.addPizza("1", pizzaId, 1)
             .then(() => loadCart())
@@ -42,7 +46,7 @@ export function AppWrapper() {
                     <h1 className="cart__heading">Cart</h1>
                     <div className="cart__product">
                         <ul className="cart__product-left">
-                            <Cart pizza={cartItems} updateTotal={loadCart} />
+                            <Cart pizza={cartItems} updateTotal={loadCart}/>
                         </ul>
                         <h2 className="cart__product-right-heading">Total <span className="dopClass">:</span> <span
                             className="cart__product-right-price">  $ {total}</span></h2>
@@ -52,7 +56,7 @@ export function AppWrapper() {
             <div className="storeProducts">
                 <div className="wrapper">
                     <div className="root">
-                        <App pizza={pizzaList} onAddToCart={handleAddToCart} />
+                        <App pizza={pizzaList} onAddToCart={handleAddToCart}/>
                     </div>
                 </div>
             </div>

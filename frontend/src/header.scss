@@ -1,10 +1,52 @@
-
 *{
   scrollbar-width: none;
 }
 #main-react-root{
   width: 100%;
 }
+.pop-up-window{
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #d8d8d8;
+  padding: 10px 15px;
+  border-radius: 15px;
+  box-shadow: #707070 1px 1px 5px;
+  position: fixed;
+  top: -50px;
+  right: 0;
+  left: 60px;
+  margin: auto;
+  &-img{
+    width: 24px;
+  }
+  &--active{
+    animation: pop-up 3s;
+  }
+}
+
+@keyframes pop-up{
+  0%{
+    top: -50px;
+    opacity: 0;
+  }
+  20%{
+    top: 10px;
+    opacity: 1;
+  }
+  80%{
+    top: 10px;
+    opacity: 1;
+
+  }
+  100%{
+    top: -70px;
+    opacity: 0;
+  }
+}
+
 .navigation__panel{
   margin-top: 10px;
   width: 100%;
