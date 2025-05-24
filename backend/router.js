@@ -74,7 +74,9 @@ router.patch(`/cart/increment/:userId/:pizzaId`,async (req,res)=>{
         if (pizzaIndex <= -1) {
             return res.status(404).json({ message: "Пицца не найдена в корзине" });
         }
-        response.allPizzas[pizzaIndex].quantity -= 1;
+        if(response.allPizzas[pizzaIndex].quantity > 1){
+            response.allPizzas[pizzaIndex].quantity -= 1;
+        }
         await response.save();
         return res.status(200).json(response);
 

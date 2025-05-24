@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",       // куда летят скомпилированные файлы
+    "rootDir": ".",   // для бэкенда
+    "jsx": "react-jsx"      // для фронтенда
+  },
+  "include": ["backend/**/*", "frontend/src/**/*"]
+}

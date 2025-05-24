@@ -43,10 +43,8 @@ export function RenderPizza( {id, img, name, price,quantity:initialQuantity,upda
     const minusClickBtn = async () => {
         cartApi.minusPizza("1", id).then((result) => {
             const item = result.allPizzas.find(element => (element.pizzaId).toString() === id);
-            if (item.quantity > 0) {
                 setQuantity(item.quantity);
                 updateTotal(id);
-            }
         })
     }
     const plusClickBtn = async () => {
