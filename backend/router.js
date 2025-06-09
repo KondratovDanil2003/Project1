@@ -77,6 +77,9 @@ router.patch(`/cart/increment/:userId/:pizzaId`,async (req,res)=>{
         if(response.allPizzas[pizzaIndex].quantity > 1){
             response.allPizzas[pizzaIndex].quantity -= 1;
         }
+        else{
+            response.allPizzas.splice(pizzaIndex, 1);
+        }
         await response.save();
         return res.status(200).json(response);
 

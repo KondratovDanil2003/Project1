@@ -1,5 +1,6 @@
 class CartApi{
-    constructor(baseUrl){
+    baseUrl: string;
+    constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
     async findAllPizzas(){
@@ -14,12 +15,12 @@ class CartApi{
 
            return await response.json();
        }
-       catch(err){
+       catch(err:any){
         console.warn(err.message);
        }
     }
 
-    async addPizza(userId,pizzaId,quantity){
+    async addPizza(userId:string,pizzaId:string,quantity:number){
         try{
             const response = await fetch(`${this.baseUrl}/api/cart`,{
                 method: "POST",
@@ -36,27 +37,27 @@ class CartApi{
 
             return await response.json();
         }
-        catch(err){
+        catch(err:any){
             console.warn(err.message);
         }
     }
-    async cartPizzas(userId){
+    async cartPizzas(userId:string){
         try{
             console.log(userId);
             const response = await fetch(`${this.baseUrl}/api/cart/${userId}`);
             if(!response.ok){
                 const error = await response.json();
-
-                throw new Error(error.message);
+                console.warn(error.message || "Ошибка добавления в корзину");
+                // throw new Error(error.message);
             }
 
             return await response.json();
         }
-        catch(err){
+        catch(err:any){
             console.warn(err.message + ": " + userId);
         }
     }
-    async minusPizza(userId,pizzaId){
+    async minusPizza(userId:string,pizzaId:string){
         try{
             const response = await fetch(`${this.baseUrl}/api/cart/increment/${userId}/${pizzaId}`,{
                 method: "PATCH"
@@ -67,23 +68,25 @@ class CartApi{
             }
             return await response.json();
         }
-        catch(err){
+        catch(err:any){
             console.warn(err.message);
         }
     }
-    async plusPizza(userId,pizzaId){
+    async plusPizza(userId:string,pizzaId:string){
         try{
             const response = await fetch(`${this.baseUrl}/api/cart/decrement/${userId}/${pizzaId}`,{
                 method: "PATCH"
             });
             if(!response.ok){
                 const error = await response.json();
-                throw new Error(error.message);
+                // throw new Error(error.message);
+                console.warn(error.message || "Ошибка добавления в корзину");
             }
             return await response.json();
         }
-        catch(err){
+        catch(err:any){
             console.warn(err.message);
+
         }
     }
 }
