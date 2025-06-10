@@ -55,7 +55,7 @@ export function AppWrapper() {
                 setCartItems(data.allPizzas);
             })
             .catch(console.log).finally(() => {
-            setTimeout(()=>setIsUpdatingTotal(false),650); // и убираем флаг после завершения
+            setTimeout(()=>setIsUpdatingTotal(false),700); // и убираем флаг после завершения
         });
     };
     useEffect(() => {

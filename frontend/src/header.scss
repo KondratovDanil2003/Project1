@@ -15,10 +15,11 @@
   border-radius: 15px;
   box-shadow: #707070 1px 1px 5px;
   position: fixed;
-  top: -50px;
+  top: -60px;
   right: 0;
   left: 60px;
   margin: auto;
+  white-space: nowrap;
   &-img{
     width: 24px;
   }

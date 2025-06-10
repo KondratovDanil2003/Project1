@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-mongoose.connect('mongodb://localhost/create-cart')
+mongoose.connect('mongodb+srv://kondratovdanil25042003:3m97nPYkz471f381@cluster0.bi7n1pj.mongodb.net/create-cart?retryWrites=true&w=majority')
     .then(() => console.log('MongoDB подключен'))
     .catch(err => console.error('Ошибка подключения :', err));
 
